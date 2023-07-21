@@ -1,0 +1,48 @@
+.textoprincipal{
+    color: rgb(0, 0, 0);
+    text-align: center;
+    margin: 5rem;
+    padding: 5rem;
+
+}
+.containerForm{
+    display: flex ;
+    justify-content: center ;
+    align-items: center ;
+    position: absolute ;
+    height: 100% ;
+    width: 100% ;
+    background-image: url("../assets/img/images.jfif");
+}
+
+.formLogin{
+    font-weight: bold;
+    background: linear-gradient(45deg, rgb(4, 98, 121) 0%, rgb(5, 106, 3) 100%);
+    padding: 40px 20px 20px 20px;
+    border-radius: 5px;
+    width: 350px;
+    height: 400px;
+
+}
+.formLogin div{
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.inputLogin{
+    border-radius: 5px;
+    border: 1px solid rebeccapurple;
+    width: 90%;
+}
+.my-custom-button {
+    margin-top: 10px;
+    color: #f10808;
+    background-color: #ff0000;
+    border-radius: 4px;
+}
+.contenido{
+    margin-top: 100px ;
+    padding: 20px;
+}
