@@ -12,14 +12,14 @@
     position: absolute ;
     height: 100% ;
     width: 100% ;
-    background-image: url("../assets/img/images.jfif");
+    background-color: #ff0000;
     background-repeat: inherit;
     
 }
 
 .formLogin{
     font-weight: bold;
-    background: linear-gradient(45deg, rgb(4, 98, 121) 0%, rgb(5, 106, 3) 100%);
+    background: linear-gradient(45deg, rgb(0, 0, 0) 0%, rgb(0, 0, 0) 100%) !important; 
     padding: 40px 20px 20px 20px;
     border-radius: 5px;
     width: 350px;

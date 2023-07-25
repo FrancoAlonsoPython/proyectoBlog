@@ -6,6 +6,7 @@
     {% load static %}
     <link href="{% static 'css/francoStyle.css'%}" rel="stylesheet"/>
     <link href="{% static 'css/bootstrap.min.css'%}" rel="stylesheet"/>
+    
     <title>Login</title>
 </head>
 <body>
@@ -13,10 +14,10 @@
     {{error}}
     
     <div class="containerForm"> 
-        <form action="" method="POST" class="formLogin"> {% csrf_token %}
-            <h3 style="color: white; font-weight:bold; margin-bottom: 30px; display: flex; justify-content: center; align-items: center;">LOGIN</h3>
+        <form action=" " method="POST" class="formLogin"> {% csrf_token %}
+            <h3 style="color: rgb(12, 12, 12); font-weight:bold; margin-bottom: 30px; display: flex; justify-content: center; align-items: center;">LOGIN</h3>
             <div>
-                <input name="user" type="text" placeholder="User" class="inputLogin">
+                <input name="username" type="text" placeholder="User" class="inputLogin">
             </div>
             <div>
                 <input name="password" type="password" placeholder="Password" class="inputLogin">
@@ -28,6 +29,7 @@
                 <p style="color: rgb(7, 3, 3);">{{error}}</p>
             {% endif %}
             <p style="color: white;">No tienes una cuenta? <a href="{% url 'signup' %}">Registrate</a></p>
+            
         </form>
     </div>
     

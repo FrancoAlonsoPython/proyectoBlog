@@ -20,7 +20,7 @@ from FutbolMundial import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('FutbolMundial/', include('FutbolMundial.urls')),
-    path('', views.menu),
+    path('', views.sigin),
     path('signup/', views.signup, name = "signup"),
     path('logout/', views.signout, name = "logout"),
     path('login/', views.sigin, name = "login"),
