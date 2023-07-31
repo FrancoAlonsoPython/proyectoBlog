@@ -1,25 +1,25 @@
 .textoprincipal{
     color: rgb(0, 0, 0);
     text-align: center;
-    margin: 5rem;
-    padding: 5rem;
 
 }
 .containerForm{
+    padding-top: 40px;
     display: flex ;
     justify-content: center ;
-    align-items: center ;
+    align-items: flex-start ;
     position: absolute ;
     height: 100% ;
     width: 100% ;
-    background-color: #ff0000;
-    background-repeat: inherit;
+    background-image: url("../assest/img/al-hilm-1471546.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
     
 }
 
 .formLogin{
     font-weight: bold;
-    background: linear-gradient(45deg, rgb(0, 0, 0) 0%, rgb(0, 0, 0) 100%) !important; 
+    background: transparent;
     padding: 40px 20px 20px 20px;
     border-radius: 5px;
     width: 350px;
@@ -45,6 +45,21 @@
     border-radius: 4px;
 }
 .contenido{
-    margin-top: 100px ;
+    margin-top: 90px ;
     padding: 20px;
+    
+    
+}
+.register-link{
+    color: #fff;
+    background-color: #000000a6;
+    text-decoration: none;
+    padding: 10px;
+    margin-left: 10px;
+    padding-left: 11px;
+    border-radius: 6px;
+}
+.textosobremi{
+    
+    text-align: center;
 }

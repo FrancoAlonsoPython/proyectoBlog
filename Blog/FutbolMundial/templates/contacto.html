@@ -1,3 +1,42 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% extends "base.html" %}
 
-{% load static %}
+    {% load static %}
+     
+    {% block contenidoQueCambia %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Futbol Mundial</title>
+    <link rel="stylesheet" href="{% static 'css/estilo.css' %}">
+   
+</head>
+<body>
+    
+    <section>
+        <form action="" method="post">
+            {% csrf_token %}
+            <h2> Comunicate con nosotros</h2>
+            <input type="text" name = "nombre" placeholder = "Tu nombre"> <br>
+            tu mensaje <br>
+            <textarea name = "mensaje">
+
+            </textarea> <br>
+            <input type="submit" name="enviar" value="Enviar Comentario" >
+            {% if mensaje %} 
+            <h2>{{ mensaje }}</h2>
+            {% endif %}
+
+            {% for page in pages %}
+            <h2>{{ page.title }}</h2>
+            <p>{{ page.summary }}</p>
+            <a href="{% url 'page_detail' page.id %}">Leer más</a>
+            {% endfor %}
+            
+        </form>
+        </section>
+        <a href="{% url 'menu' %}" style="background-color: #ff0000; color: #fff; padding: 10px 20px; border: none; border-radius: 4px; text-decoration: none;" class="back-button">BACK</a>
+    {% endblock %}
+</body>
+</html>

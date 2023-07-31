@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block contenidoQueCambia %}
+<h3>Editar Perfil</h3>
+<h6>{{user.username}}</h6>
+
+<form method="POST"> {% csrf_token %}
+    <table>
+        {{ form.as_table }}
+    </table>
+    <input type="submit" value="Guardar cambios">
+</form>
+<a href="/FutbolMundial/changePassword">Cambiar contraseña</a>
+{% endblock %}
