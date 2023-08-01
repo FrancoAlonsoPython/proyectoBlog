@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render,redirect
-from django.contrib.auth.forms import AuthenticationForm #UserCreationForm,
+from django.contrib.auth.forms import AuthenticationForm 
 from  django.contrib.auth.models import User
 from django.contrib.auth import login , logout,authenticate, update_session_auth_hash
 from django.db import IntegrityError
@@ -11,7 +11,7 @@ from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView,DeleteView,UpdateView
 from FutbolMundial.forms import UserEditForm, ChangePasswordForm , AvatarForm
-
+from django.utils.decorators import method_decorator
 
 
 @login_required
@@ -31,6 +31,7 @@ def sobreMi(request):
 
 @login_required
 def blog(request):
+        avatar = getavatar(request)
         
         futbol = Autores.objects.all()
         pages = Page.objects.all()
@@ -42,15 +43,16 @@ def blog(request):
             obj.save()
             mensaje = "Gracias por tu comentario!"
             return render (request,"blog.html" , {"futbol": futbol, "pages": pages,"mensaje":mensaje} )
-        return render(request, "blog.html",  {"futbol" : futbol ,"pages": pages,} )
+        return render(request, "blog.html",  {"futbol" : futbol ,"pages": pages, 'avatar': avatar} )
 
-    #return render(request, 'blog.html')
+   
 
 
 
 
 @login_required
 def contacto(request):
+    avatar = getavatar(request)
     
     futbol = Autores.objects.all()
     pages = Page.objects.all()
@@ -62,7 +64,7 @@ def contacto(request):
         obj.save()
         mensaje = "Gracias por tu comentario!"
         return render (request,"contacto.html" , {"futbol": futbol, "pages": pages,"mensaje":mensaje})
-    return render(request, "contacto.html", {"futbol" : futbol ,"pages": pages,} )
+    return render(request, "contacto.html", {"futbol" : futbol ,"pages": pages, 'avatar': avatar} )
 
 
 
@@ -128,16 +130,30 @@ def page_detail(request, pageId):
     return render(request, 'page_detail.html', {'page': page})
 
 
-
+@method_decorator(login_required, name='dispatch')
 class AutorList(ListView):
-
+    
     model = Autores
-    template_name = "autor_list.html"
+    template_name = "autor_list.html" 
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        
+        avatar = getavatar(self.request)
+
+    
+        context['avatar'] = avatar
+
+        return context
+
+    
     
 
 class AutorDetalle(DetailView):
     model = Autores
     template_name = "autor_detalle.html"
+
 
 class AutorCreacion(CreateView):
     model = Autores
@@ -145,26 +161,32 @@ class AutorCreacion(CreateView):
     success_url = "/FutbolMundial/autor/list"
     fields = ["nombre"]
 
+
 class AutorUpdate(UpdateView):
     model = Autores
     template_name = "autor_form.html"
     success_url = "/FutbolMundial/autor/list"
     fields = ["nombre"]
 
+
 class AutorDelete(DeleteView):
+
     model = Autores
     template_name = "autor_confirm_delete.html"
     success_url = "/FutbolMundial/autor/list"
+
 
 @login_required
 def perfilview(request):
     
     user = request.user
     return render(request, 'perfil.html', {'user': user} )
-   
+
+
 @login_required  
 def editarPerfil(request):
-    
+
+    avatar = getavatar(request)
     usuario = request.user
     user_basic_info = User.objects.get(id = usuario.id)
     if request.method == "POST":
@@ -175,13 +197,16 @@ def editarPerfil(request):
             user_basic_info.first_name = form.cleaned_data.get('first_name')
             user_basic_info.last_name = form.cleaned_data.get('last_name')
             user_basic_info.save()
-            return render(request, 'Perfil.html', )
+            return render(request, 'Perfil.html', {"avatar": avatar})
     else:
         form = UserEditForm(initial= {'username': usuario.username, 'email': usuario.email, 'first_name': usuario.first_name, 'last_name': usuario.last_name })
-        return render(request, 'editarPerfil.html', {"form": form})
+        return render(request, 'editarPerfil.html', {"form": form, "avatar": avatar})
+
 
 @login_required
 def changePassword(request):
+
+    avatar = getavatar(request)
     usuario = request.user    
     if request.method == "POST":
         form = ChangePasswordForm(data = request.POST, user = usuario)
@@ -190,11 +215,13 @@ def changePassword(request):
                 user = form.save()
                 update_session_auth_hash(request, user)
             return HttpResponse("Las constraseñas no coinciden")
-        return render(request, "menu.html")
+        return render(request, "menu.html", {"avatar": avatar})
     else:
         form = ChangePasswordForm(user = usuario)
-        return render(request, 'changePassword.html', {"form": form})
-    
+        return render(request, 'changePassword.html', {"form": form,"avatar": avatar})
+
+
+
 def getavatar(request):
     avatar = Avatar.objects.filter(user = request.user.id)
     try:
@@ -203,7 +230,10 @@ def getavatar(request):
         avatar = None
     return avatar
 
+
 def editAvatar(request):
+
+    avatar = getavatar(request)
     if request.method == 'POST':
         form = AvatarForm(request.POST, request.FILES)
         print(form)
@@ -224,4 +254,6 @@ def editAvatar(request):
             form = AvatarForm()
         except:
             form = AvatarForm()
-    return render(request, "avatar.html", {'form': form})
+    return render(request, "avatar.html", {'form': form, 'avatar': avatar})
+
+
